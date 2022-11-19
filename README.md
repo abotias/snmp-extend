@@ -18,19 +18,20 @@ Reiniciar servicio snmpd.
 Configurar PRTG:
 
 Configurar SNMP en el dispositivo o grupo donde se encuentran los dispositivos a monitorizar:
-
+![Screenshot](assets/image-1.png)
 
 Añadir sensor "SNMP Custom":
-
+![Screenshot](assets/image-2.png)
 
 Configurar sensor:
 Para saber el número de OID podemos usar la herramienta snmptranslate
+```sh
+snmptranslate -On NET-SNMP-EXTEND-MIB::nsExtendOutput1Line .1.3.6.1.4.1.8072.1.3.2.3.1.
+```
+![Screenshot](assets/image-3.png)
 
+Editar el canal para definir unos umbrales de alerta:\
+![Screenshot](assets/image-4.png)
 
-snmptranslate -On NET-SNMP-EXTEND-MIB::nsExtendOutput1Line
-.1.3.6.1.4.1.8072.1.3.2.3.1.
-Editar el canal para definir unos umbrales de alerta:
-
-
-Resultado:
-
+Resultado:\
+![Screenshot](assets/image-5.png)
