@@ -9,10 +9,9 @@ Script que nos devuelve el uso de la memoria en %:
 if [[ "$1" == "mem" ]];then free |grep Mem|awk '{print $3/$2 * 100}'|awk -F"." '{printf $1}';fi
 ```
 Añadir al fichero snmpd.conf:
-
-
-Extend SNMP
+```sh
 extend checkmem /var/prtg/snmp/checksystem.sh mem
+```
 Reiniciar servicio snmpd.
 
 Configurar PRTG:
