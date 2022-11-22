@@ -1,36 +1,36 @@
 # SNMP EXTEND
-En este caso voy a documentar como monitorizar el sistema mediante SNMP Extend, muy útil para la monitorización específica de recursos o servicios.
-En este ejemplo monitorizaré el uso de memoria del sistema.
+How to monitor the system with a script via SNMP.
+This example monitors memory but can monitor any parameter.
 
-Script que nos devuelve el uso de la memoria en %:
+This script returns memory usage in percentage:
 
 ```sh
 #!/bin/bash
 if [[ "$1" == "mem" ]];then free |grep Mem|awk '{print $3/$2 * 100}'|awk -F"." '{printf $1}';fi
 ```
-Añadir al fichero snmpd.conf:
+Add to file /etc/snmp/snmpd.conf:
 ```sh
 extend checkmem /var/prtg/snmp/checksystem.sh mem
 ```
-Reiniciar servicio snmpd.
+Restart service snmpd.
 
-Configurar PRTG:
+Configure PRTG:
 
-Configurar SNMP en el dispositivo o grupo donde se encuentran los dispositivos a monitorizar:
+Configure SNMP on the device or group where the devices to be monitored are located:
 ![Screenshot](assets/image-1.png)
 
-Añadir sensor "SNMP Custom":
+Add sensor "SNMP Custom":
 ![Screenshot](assets/image-2.png)
 
-Configurar sensor:
-Para saber el número de OID podemos usar la herramienta snmptranslate
+Configure sensor:
+To know the OID number we can use the snmptranslate tool:
 ```sh
 snmptranslate -On NET-SNMP-EXTEND-MIB::nsExtendOutput1Line .1.3.6.1.4.1.8072.1.3.2.3.1.
 ```
 ![Screenshot](assets/image-3.png)
 
-Editar el canal para definir unos umbrales de alerta:\
+Edit channel to define alert thresholds:\
 ![Screenshot](assets/image-4.png)
 
-Resultado:\
+Result:\
 ![Screenshot](assets/image-5.png)
